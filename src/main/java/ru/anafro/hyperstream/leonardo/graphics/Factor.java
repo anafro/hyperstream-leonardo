@@ -23,10 +23,6 @@ public final class Factor {
         return cubicBezier.ease(cocktailShaken);
     }
 
-    public static double shaker(final double coordinate) {
-        return shaker(coordinate, CubicBezier.linear());
-    }
-
     public static double of(final int value, final int max) {
         return (double) value / max;
     }

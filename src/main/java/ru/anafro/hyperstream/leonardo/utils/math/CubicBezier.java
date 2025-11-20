@@ -35,8 +35,6 @@ public final class CubicBezier {
             if (Math.abs(xAtT) < 1.0E-7) return t;
             if (Math.abs(dx) < 1e-6) break;
             t = t - xAtT / dx;
-            if (t < 0) { t = 0; break; }
-            if (t > 1) { t = 1; break; }
         }
 
         double t0 = 0.0;

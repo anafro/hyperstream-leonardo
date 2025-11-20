@@ -47,20 +47,6 @@ public final class Colors {
         return argb(TRANSPARENCY ? a : 0xFF, r, g, b);
     }
 
-    public static int mask(boolean bool) {
-        return bool ? 0xFFFFFFFF : 0xFF000000;
-    }
-
-    public static int monoFx(int argb, Function<Integer, Integer> effect) {
-        final int a = effect.apply(a(argb));
-        final int r = effect.apply(r(argb));
-        final int g = effect.apply(g(argb));
-        final int b = effect.apply(b(argb));
-
-        return argb(a, r, g, b);
-    }
-
-
     public static int saturate(int argb, double factor) {
         float[] hsl = rgbToHsl(argb);
         hsl[1] *= (float) factor;               // насыщенность
