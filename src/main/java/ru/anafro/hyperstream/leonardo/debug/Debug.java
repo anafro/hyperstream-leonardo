@@ -6,6 +6,7 @@ import java.util.function.Function;
 public final class Debug {
     private Debug() { /* util class */ }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static <T> T $(T any) {
         if (Objects.isNull(any)) {
             System.out.println("(None)");
@@ -19,6 +20,7 @@ public final class Debug {
         return any;
     }
 
+    @SuppressWarnings({"unused", "UnusedReturnValue"})
     public static <T, M> T $(T any, Function<T, M> howToPrint) {
         $(howToPrint.apply(any));
         return any;

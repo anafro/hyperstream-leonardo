@@ -11,6 +11,7 @@ public final class Points {
         return cy + (x - cx) * Math.sin(alpha) + (y - cy) * Math.cos(alpha);
     }
 
+    @SuppressWarnings("unused")
     public static double distance(final double ax, final double ay, final double bx, final double by) {
         return Math.sqrt(Math.pow(ax - bx, 2) + Math.pow(ay - by, 2));
     }

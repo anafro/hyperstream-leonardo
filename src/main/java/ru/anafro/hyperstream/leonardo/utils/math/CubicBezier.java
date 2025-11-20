@@ -18,8 +18,8 @@ public final class CubicBezier {
     private double sampleCurveX(double t) { return sampleCurve(x1, x2, t); }
     private double sampleCurveY(double t) { return sampleCurve(y1, y2, t); }
 
+    @SuppressWarnings("unused")
     private double sampleCurveDerivativeX(double a1, double a2, double t) {
-        final double invT = 1.0 - t;
         return 3.0 * a1 * ( (1 - t) * (1 - t) ) + 6.0 * (a2 - a1) * (1 - t) * t + 3.0 * (1 - a2) * t * t;
     }
 
@@ -58,14 +58,28 @@ public final class CubicBezier {
         return sampleCurveY(t);
     }
 
-    public static double ease(double x1, double y1, double x2, double y2, double progress) {
-        final var bezier = new CubicBezier(x1, y1, x2, y2);
-        return bezier.ease(progress);
+    @SuppressWarnings("unused")
+    public static CubicBezier linear() {
+        return new CubicBezier(0.0, 0.0, 1.0, 1.0);
     }
 
-    public static CubicBezier linear() { return new CubicBezier(0.0, 0.0, 1.0, 1.0); }
-    public static CubicBezier ease() { return new CubicBezier(0.25, 0.1, 0.25, 1.0); }
-    public static CubicBezier easeIn() { return new CubicBezier(0.42, 0.0, 1.0, 1.0); }
-    public static CubicBezier easeOut() { return new CubicBezier(0.0, 0.0, 0.58, 1.0); }
-    public static CubicBezier easeInOut() { return new CubicBezier(0.42, 0.0, 0.58, 1.0); }
+    @SuppressWarnings("unused")
+    public static CubicBezier ease() {
+        return new CubicBezier(0.25, 0.1, 0.25, 1.0);
+    }
+
+    @SuppressWarnings("unused")
+    public static CubicBezier easeIn() {
+        return new CubicBezier(0.42, 0.0, 1.0, 1.0);
+    }
+
+    @SuppressWarnings("unused")
+    public static CubicBezier easeOut() {
+        return new CubicBezier(0.0, 0.0, 0.58, 1.0);
+    }
+
+    @SuppressWarnings("unused")
+    public static CubicBezier easeInOut() {
+        return new CubicBezier(0.42, 0.0, 0.58, 1.0);
+    }
 }
