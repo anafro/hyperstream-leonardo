@@ -5,8 +5,6 @@ import ru.anafro.hyperstream.leonardo.utils.platform.Platform;
 import javax.swing.*;
 import java.awt.*;
 
-import static ru.anafro.hyperstream.leonardo.debug.Debug.$;
-
 public class ImageViewer {
     private final JFrame frame;
     private final JLabel imageView;

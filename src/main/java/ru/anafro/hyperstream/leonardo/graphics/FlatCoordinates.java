@@ -1,7 +1,5 @@
 package ru.anafro.hyperstream.leonardo.graphics;
 
-import ru.anafro.hyperstream.leonardo.utils.math.Mod;
-
 public class FlatCoordinates {
     private FlatCoordinates() { /* util class */ }
 

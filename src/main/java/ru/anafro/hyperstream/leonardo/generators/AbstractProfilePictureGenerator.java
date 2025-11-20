@@ -3,8 +3,6 @@ package ru.anafro.hyperstream.leonardo.generators;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static ru.anafro.hyperstream.leonardo.debug.Debug.$;
-
 public abstract class AbstractProfilePictureGenerator {
     protected abstract void draw(Dimension size, int[] canvas);
     public Image generateImage(Dimension size) {
