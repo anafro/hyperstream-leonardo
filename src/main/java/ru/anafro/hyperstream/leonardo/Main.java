@@ -16,7 +16,8 @@ public class Main {
                                "It's ok, we'll just ignore them, going on...");
         }
 
-        final var configuration = new Configuration(ApplicationEnvironment.DEVELOPMENT);
+        final var environment = ApplicationEnvironment.fromEnv();
+        final var configuration = new Configuration(environment);
         final var generator = new LargeMagellanicCloudProfileImageGenerator(UUID.randomUUID().toString());
         final var image = generator.generateImage(new Dimension(1024, 1024));
 
