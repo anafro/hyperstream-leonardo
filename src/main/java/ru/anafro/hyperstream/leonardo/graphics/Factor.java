@@ -1,4 +1,4 @@
-package ru.anafro.hyperstream.leonardo.graphics.math;
+package ru.anafro.hyperstream.leonardo.graphics;
 
 import ru.anafro.hyperstream.leonardo.utils.math.CubicBezier;
 import ru.anafro.hyperstream.leonardo.utils.math.Mod;
