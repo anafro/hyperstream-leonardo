@@ -20,7 +20,7 @@ public enum ApplicationEnvironment {
     }
 
     public static ApplicationEnvironment fromEnv() {
-        final var env = System.getenv("environment");
+        final var env = System.getenv("ENVIRONMENT");
 
         for (var environment : values()) {
             if (environment.label.equals(env)) {
