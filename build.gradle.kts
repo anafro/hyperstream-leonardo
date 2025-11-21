@@ -1,5 +1,18 @@
 plugins {
     id("java")
+    id("application")
+}
+
+application {
+    mainClass = "ru.anafro.hyperstream.leonardo.Main"
+}
+
+tasks.jar {
+    archiveFileName = "Hyperstream-Leonardo.jar"
+
+    manifest {
+        attributes["Main-Class"] = application.mainClass
+    }
 }
 
 group = "ru.anafro.hyperstream.leonardo"
