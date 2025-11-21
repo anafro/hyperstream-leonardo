@@ -3,13 +3,12 @@ plugins {
     id("application")
 }
 
+group = "ru.anafro.hyperstream.leonardo"
+version = "1.0-SNAPSHOT"
+
 application {
     mainClass = "ru.anafro.hyperstream.leonardo.Main"
 }
-
-
-group = "ru.anafro.hyperstream.leonardo"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
