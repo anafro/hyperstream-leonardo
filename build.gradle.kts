@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.rabbitmq:amqp-client:5.27.1")
     implementation("org.slf4j:slf4j-api:1.7.25")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
