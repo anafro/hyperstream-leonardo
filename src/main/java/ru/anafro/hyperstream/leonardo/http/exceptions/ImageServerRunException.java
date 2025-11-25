@@ -1,4 +1,4 @@
-package ru.anafro.hyperstream.leonardo.debug.exceptions;
+package ru.anafro.hyperstream.leonardo.http.exceptions;
 
 import ru.anafro.hyperstream.leonardo.exceptions.HyperstreamLeonardoException;
 

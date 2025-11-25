@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import ru.anafro.hyperstream.leonardo.debug.exceptions.ImageServerRunException;
+import ru.anafro.hyperstream.leonardo.http.exceptions.ImageServerRunException;
 import ru.anafro.hyperstream.leonardo.facades.HyperstreamLeonardo;
 
 import javax.imageio.ImageIO;
