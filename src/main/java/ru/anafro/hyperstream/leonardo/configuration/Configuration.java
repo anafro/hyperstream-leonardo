@@ -18,6 +18,7 @@ public class Configuration {
     private final Integer httpPort;
     private final Integer httpWorkerThreads;
     private final Integer httpMaxConnections;
+    private final String s3Endpoint;
 
     public Configuration(ApplicationEnvironment applicationEnvironment) throws ConfigurationLoadingException {
         if (Objects.isNull(applicationEnvironment)) {
@@ -34,6 +35,9 @@ public class Configuration {
             this.httpPort = nullish(properties.getProperty("http.port"), Integer::parseInt);
             this.httpWorkerThreads = nullish(properties.getProperty("http.threads"), Integer::parseInt);
             this.httpMaxConnections = nullish(properties.getProperty("http.connections"), Integer::parseInt);
+            this.s3Endpoint = properties.getProperty("s3.endpoint");
+
+            Objects.requireNonNull(s3Endpoint, "Configuration files must include an Amazon S3 endpoint. Set key s3.endpoint in the configuration properties file.");
         } catch (IOException ioException) {
             throw new ConfigurationLoadingException(ioException);
         }
@@ -57,5 +61,9 @@ public class Configuration {
 
     public Integer getHttpMaxConnections() {
         return httpMaxConnections;
+    }
+
+    public String getS3Endpoint() {
+        return s3Endpoint;
     }
 }
