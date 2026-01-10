@@ -13,8 +13,15 @@ application {
     mainClass = "ru.anafro.hyperstream.leonardo.Main"
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_24
-java.targetCompatibility = JavaVersion.VERSION_24
+java.sourceCompatibility = JavaVersion.VERSION_21
+java.targetCompatibility = JavaVersion.VERSION_21
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
 
 
 ///// Dependencies /////
