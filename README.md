@@ -66,13 +66,13 @@ Afterwards, to build Leonardo, run Gradle build.
 For UNIX-based platforms, like Linux or MacOS, use:
 
 ```bash
-./gradlew shadowJar
+./gradlew jar
 ```
 
 For Windows, use:
 
 ```bash
-./gradlew.bat shadowJar
+./gradlew.bat jar
 ```
 
 Now Leonardo on path `build/libs/Hyperstream-Leonardo-(version).jar` is yours forever!
