@@ -78,6 +78,6 @@ public class FilesystemProfilePictureRepository extends ProfilePictureRepository
     }
 
     private Path resolveProfilePictureImagePath(int id) {
-        return this.directoryPath.resolve("{id}.png".formatted(id));
+        return this.directoryPath.resolve("%d.png".formatted(id));
     }
 }
