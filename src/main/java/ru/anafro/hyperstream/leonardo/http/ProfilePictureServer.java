@@ -50,6 +50,6 @@ public class ProfilePictureServer {
     }
 
     private void defineRoutes() {
-        this.javalin.get("/{username}/profile-picture", this::getProfilePicture);
+        this.javalin.get("/@{username}/profile-picture", this::getProfilePicture);
     }
 }
