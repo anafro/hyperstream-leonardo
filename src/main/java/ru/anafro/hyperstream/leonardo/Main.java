@@ -6,6 +6,8 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.Namespace;
 import ru.anafro.hyperstream.leonardo.generators.ProfilePictureGeneratorFactory;
 import ru.anafro.hyperstream.leonardo.http.ProfilePictureServer;
+import ru.anafro.hyperstream.leonardo.messaging.CreateProfilePictureMessageReceiver;
+import ru.anafro.hyperstream.leonardo.messaging.RabbitMQConnection;
 import ru.anafro.hyperstream.leonardo.metadata.HashcodeProfilePictureIdConverter;
 import ru.anafro.hyperstream.leonardo.storage.EphemeralProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.FilesystemProfilePictureRepository;
@@ -36,7 +38,14 @@ public class Main {
                 throw new IllegalArgumentException("'{}' storage is unknown.".formatted(storage));
         };
 
-        final ProfilePictureServer server = new ProfilePictureServer(idConverter, repository, port);
+        final var server = new ProfilePictureServer(idConverter, repository, port);
+        final var rabbitUsername = System.getenv("RABBITMQ_USER");
+        final var rabbitPassword = System.getenv("RABBITMQ_PASS");
+        final var rabbitConnection = new RabbitMQConnection(rabbitUsername, rabbitPassword);
+        final var receiver = new CreateProfilePictureMessageReceiver(rabbitConnection, repository, generator,
+                idConverter);
+
+        receiver.startAsynchronously();
         server.start();
     }
 
