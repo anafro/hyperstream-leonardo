@@ -1,4 +1,4 @@
-FROM chainguard/gradle:latest AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 COPY gradlew .
 COPY src src
