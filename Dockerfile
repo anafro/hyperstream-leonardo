@@ -8,7 +8,7 @@ COPY settings.gradle.kts .
 RUN ./gradlew jar
 
 FROM eclipse-temurin:21-jre-alpine AS run
-COPY --from=build /app/build/libs/Hyperstream-Leonardo.jar .
+COPY --from=build /app/build/*.jar Hyperstream-Leonardo.jar
 ARG ENVIRONMENT="prod"
 ENV ENVIRONMENT=${ENVIRONMENT}
 ENTRYPOINT ["java", "-jar", "Hyperstream-Leonardo.jar"]
