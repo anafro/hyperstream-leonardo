@@ -1,7 +1,6 @@
 FROM chainguard/gradle:latest AS build
 WORKDIR /app
 COPY gradlew .
-RUN chmod +x gradlew
 COPY src src
 COPY gradle gradle
 COPY build.gradle.kts .
