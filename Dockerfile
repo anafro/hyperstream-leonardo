@@ -1,6 +1,7 @@
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 COPY gradlew .
+COPY gradle.properties .
 COPY src src
 COPY gradle gradle
 COPY build.gradle.kts .
