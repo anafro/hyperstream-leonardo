@@ -6,12 +6,12 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.Namespace;
 import ru.anafro.hyperstream.leonardo.generators.ProfilePictureGeneratorFactory;
 import ru.anafro.hyperstream.leonardo.http.ProfilePictureServer;
-import ru.anafro.hyperstream.leonardo.messaging.CreateProfilePictureMessageReceiver;
-import ru.anafro.hyperstream.leonardo.messaging.RabbitMQConnection;
+import ru.anafro.hyperstream.leonardo.messaging.CreateUserEventHandler;
 import ru.anafro.hyperstream.leonardo.metadata.HashcodeProfilePictureIdConverter;
 import ru.anafro.hyperstream.leonardo.storage.EphemeralProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.FilesystemProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.ProfilePictureRepository;
+import ru.anafro.hyperstream.leonardo.utils.messaging.RabbitMQConnection;
 
 public class Main {
     public static void main(String[] args) {
@@ -42,7 +42,7 @@ public class Main {
         final var rabbitUsername = System.getenv("RABBITMQ_USER");
         final var rabbitPassword = System.getenv("RABBITMQ_PASS");
         final var rabbitConnection = new RabbitMQConnection(rabbitUsername, rabbitPassword);
-        final var receiver = new CreateProfilePictureMessageReceiver(rabbitConnection, repository, generator,
+        final var receiver = new CreateUserEventHandler(rabbitConnection, repository, generator,
                 idConverter);
 
         receiver.startAsynchronously();

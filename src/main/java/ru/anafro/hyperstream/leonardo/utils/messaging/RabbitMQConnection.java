@@ -1,4 +1,4 @@
-package ru.anafro.hyperstream.leonardo.messaging;
+package ru.anafro.hyperstream.leonardo.utils.messaging;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

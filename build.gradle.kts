@@ -35,6 +35,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.25")
     implementation("net.sourceforge.argparse4j:argparse4j:0.9.0")
     implementation("io.javalin:javalin:6.7.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
