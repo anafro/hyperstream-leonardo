@@ -8,6 +8,7 @@ import ru.anafro.hyperstream.leonardo.generators.ProfilePictureGeneratorFactory;
 import ru.anafro.hyperstream.leonardo.http.ProfilePictureServer;
 import ru.anafro.hyperstream.leonardo.messaging.CreateUserEventHandler;
 import ru.anafro.hyperstream.leonardo.metadata.HashcodeProfilePictureIdConverter;
+import ru.anafro.hyperstream.leonardo.secrets.Secrets;
 import ru.anafro.hyperstream.leonardo.storage.EphemeralProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.FilesystemProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.ProfilePictureRepository;
@@ -39,8 +40,8 @@ public class Main {
         };
 
         final var server = new ProfilePictureServer(idConverter, repository, port);
-        final var rabbitUsername = System.getenv("RABBITMQ_USER");
-        final var rabbitPassword = System.getenv("RABBITMQ_PASS");
+        final var rabbitUsername = Secrets.get("RABBITMQ_USER");
+        final var rabbitPassword = Secrets.get("RABBITMQ_PASS");
         final var rabbitConnection = new RabbitMQConnection(rabbitUsername, rabbitPassword);
         final var receiver = new CreateUserEventHandler(rabbitConnection, repository, generator,
                 idConverter);
