@@ -12,6 +12,7 @@ import ru.anafro.hyperstream.leonardo.secrets.Secrets;
 import ru.anafro.hyperstream.leonardo.storage.EphemeralProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.FilesystemProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.storage.ProfilePictureRepository;
+import ru.anafro.hyperstream.leonardo.storage.S3ProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.utils.messaging.RabbitMQConnection;
 
 public class Main {
@@ -33,8 +34,12 @@ public class Main {
                 final var directoryPath = Path.of(directoryPathString);
                 yield new FilesystemProfilePictureRepository(directoryPath);
             }
-            case "s3" ->
-                throw new UnsupportedOperationException("S3 caching is not implemented.");
+            case "s3" -> {
+                final var s3AccessKey = Secrets.get("S3_ACCESS_KEY");
+                final var s3SecretKey = Secrets.get("S3_SECRET_KEY");
+                final var s3Region = Secrets.get("S3_REGION");
+                yield new S3ProfilePictureRepository(s3AccessKey, s3SecretKey, s3Region);
+            }
             default ->
                 throw new IllegalArgumentException("'{}' storage is unknown.".formatted(storage));
         };
@@ -69,9 +74,7 @@ public class Main {
         final var filesystem = storage.addParser("filesystem");
         filesystem.addArgument("--path").type(String.class).required(true);
 
-        final var s3 = storage.addParser("s3");
-        s3.addArgument("--access-key").required(true);
-        s3.addArgument("--secret-key").required(true);
+        storage.addParser("s3");
 
         return cli.parseArgsOrFail(args);
     }
