@@ -14,6 +14,7 @@ public class RabbitMQConnection {
     public RabbitMQConnection(final String host, final String username, final String password) {
         try {
             final var connectionFactory = new ConnectionFactory();
+            connectionFactory.setHost(host);
             connectionFactory.setUsername(username);
             connectionFactory.setPassword(password);
             this.connection = connectionFactory.newConnection();
