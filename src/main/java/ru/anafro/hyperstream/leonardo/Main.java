@@ -35,10 +35,11 @@ public class Main {
                 yield new FilesystemProfilePictureRepository(directoryPath);
             }
             case "s3" -> {
+                final var s3Hostname = Secrets.get("S3_HOST");
                 final var s3AccessKey = Secrets.get("S3_ACCESS_KEY");
                 final var s3SecretKey = Secrets.get("S3_SECRET_KEY");
                 final var s3Region = Secrets.get("S3_REGION");
-                yield new S3ProfilePictureRepository(s3AccessKey, s3SecretKey, s3Region);
+                yield new S3ProfilePictureRepository(s3Hostname, s3AccessKey, s3SecretKey, s3Region);
             }
             default ->
                 throw new IllegalArgumentException("'{}' storage is unknown.".formatted(storage));

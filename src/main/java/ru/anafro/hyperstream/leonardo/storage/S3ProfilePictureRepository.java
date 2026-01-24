@@ -1,6 +1,7 @@
 package ru.anafro.hyperstream.leonardo.storage;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Optional;
 
 import ru.anafro.hyperstream.leonardo.metadata.ProfilePicture;
@@ -12,16 +13,20 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 
+import static ru.anafro.hyperstream.leonardo.utils.sugar.CheckedExceptions.rethrowUnchecked;
+
 public class S3ProfilePictureRepository extends ProfilePictureRepository {
     private final S3Client s3;
     private static final String BUCKET_NAME = "profile-pictures";
 
-    public S3ProfilePictureRepository(String accessKey, String secretKey, String region) {
+    public S3ProfilePictureRepository(String host, String accessKey, String secretKey, String region) {
         final var awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
         final var awsCredentialsProvider = StaticCredentialsProvider.create(awsCredentials);
         final var awsRegion = Region.of(region);
+        final var awsEndpointURI = rethrowUnchecked(() -> new URI("http://%s:4566/".formatted(host)));
 
         this.s3 = S3Client.builder()
+                .endpointOverride(awsEndpointURI)
                 .region(awsRegion)
                 .credentialsProvider(awsCredentialsProvider)
                 .build();
