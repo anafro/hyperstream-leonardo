@@ -45,9 +45,10 @@ public class Main {
         };
 
         final var server = new ProfilePictureServer(idConverter, repository, port);
+        final var rabbitHostname = Secrets.get("RABBITMQ_HOST");
         final var rabbitUsername = Secrets.get("RABBITMQ_USER");
         final var rabbitPassword = Secrets.get("RABBITMQ_PASS");
-        final var rabbitConnection = new RabbitMQConnection(rabbitUsername, rabbitPassword);
+        final var rabbitConnection = new RabbitMQConnection(rabbitHostname, rabbitUsername, rabbitPassword);
         final var receiver = new CreateUserEventHandler(rabbitConnection, repository, generator,
                 idConverter);
 
