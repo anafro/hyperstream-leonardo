@@ -49,7 +49,13 @@ public class ProfilePictureServer {
         ctx.result(profilePictureBytes.array());
     }
 
+    private void getUp(Context ctx) {
+        ctx.contentType(ContentType.TEXT_PLAIN);
+        ctx.result("OK");
+    }
+
     private void defineRoutes() {
         this.javalin.get("/@{username}/profile-picture", this::getProfilePicture);
+        this.javalin.get("/up", this::getUp);
     }
 }
