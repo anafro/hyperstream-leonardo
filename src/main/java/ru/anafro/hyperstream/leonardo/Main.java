@@ -20,6 +20,7 @@ public class Main {
         final var namespace = parseArgs(args);
         final var storage = namespace.getString("storage");
         final var generatorName = namespace.getString("generator");
+        final var host = namespace.getString("host");
         final var port = namespace.getInt("port");
         final var width = namespace.getInt("width");
         final var height = namespace.getInt("height");
@@ -45,7 +46,7 @@ public class Main {
                 throw new IllegalArgumentException("'{}' storage is unknown.".formatted(storage));
         };
 
-        final var server = new ProfilePictureServer(idConverter, repository, port);
+        final var server = new ProfilePictureServer(idConverter, repository, host, port);
         final var rabbitHostname = Secrets.get("RABBITMQ_HOST");
         final var rabbitUsername = Secrets.get("RABBITMQ_USER");
         final var rabbitPassword = Secrets.get("RABBITMQ_PASS");
@@ -64,6 +65,7 @@ public class Main {
                 .defaultHelp(true)
                 .description("");
 
+        cli.addArgument("--host").type(String.class).required(true);
         cli.addArgument("--port").type(Integer.class).required(true);
         cli.addArgument("--generator").type(String.class).required(true);
         cli.addArgument("--width").type(Integer.class).required(true);

@@ -16,21 +16,24 @@ public class ProfilePictureServer {
     private final Javalin javalin;
     private final ProfilePictureIdConverter idConverter;
     private final ProfilePictureRepository repository;
+    private final String host;
     private final int port;
 
     public ProfilePictureServer(
             ProfilePictureIdConverter idConverter,
             ProfilePictureRepository repository,
+            final String host,
             final int port) {
         this.idConverter = idConverter;
         this.repository = repository;
+        this.host = host;
         this.port = port;
         this.javalin = Javalin.create();
         this.defineRoutes();
     }
 
     public void start() {
-        this.javalin.start(this.port);
+        this.javalin.start(this.host, this.port);
     }
 
     private void getProfilePicture(Context ctx) {
