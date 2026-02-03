@@ -24,6 +24,7 @@ public class Main {
         final var port = namespace.getInt("port");
         final var width = namespace.getInt("width");
         final var height = namespace.getInt("height");
+        final var needsRabbit = namespace.getBoolean("rabbit");
         final var generator = ProfilePictureGeneratorFactory.create(generatorName, width, height);
         final var idConverter = new HashcodeProfilePictureIdConverter();
 
@@ -46,15 +47,17 @@ public class Main {
                 throw new IllegalArgumentException("'{}' storage is unknown.".formatted(storage));
         };
 
-        final var server = new ProfilePictureServer(idConverter, repository, host, port);
-        final var rabbitHostname = Secrets.get("RABBITMQ_HOST");
-        final var rabbitUsername = Secrets.get("RABBITMQ_USER");
-        final var rabbitPassword = Secrets.get("RABBITMQ_PASS");
-        final var rabbitConnection = new RabbitMQConnection(rabbitHostname, rabbitUsername, rabbitPassword);
-        final var receiver = new CreateUserEventHandler(rabbitConnection, repository, generator,
-                idConverter);
+        if (needsRabbit) {
+            final var rabbitHostname = Secrets.get("RABBITMQ_HOST");
+            final var rabbitUsername = Secrets.get("RABBITMQ_USER");
+            final var rabbitPassword = Secrets.get("RABBITMQ_PASS");
+            final var rabbitConnection = new RabbitMQConnection(rabbitHostname, rabbitUsername, rabbitPassword);
+            final var receiver = new CreateUserEventHandler(rabbitConnection, repository, generator,
+                    idConverter);
+            receiver.startAsynchronously();
+        }
 
-        receiver.startAsynchronously();
+        final var server = new ProfilePictureServer(idConverter, repository, host, port);
         server.start();
     }
 
@@ -70,6 +73,7 @@ public class Main {
         cli.addArgument("--generator").type(String.class).required(true);
         cli.addArgument("--width").type(Integer.class).required(true);
         cli.addArgument("--height").type(Integer.class).required(true);
+        cli.addArgument("--rabbit").type(Boolean.class).setDefault(true);
 
         final var storage = cli.addSubparsers().dest("storage");
 
