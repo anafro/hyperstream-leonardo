@@ -33,10 +33,7 @@ dependencies {
     implementation("io.javalin:javalin:6.7.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
     implementation("software.amazon.awssdk:s3:2.41.10")
-    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
-    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.25.3")
-    implementation("org.slf4j:slf4j-api:2.0.17")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.0")
+    implementation("ch.qos.logback:logback-classic:1.5.27")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
