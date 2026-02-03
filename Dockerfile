@@ -12,7 +12,5 @@ RUN ./gradlew --no-daemon jar
 FROM eclipse-temurin:21-jre-alpine AS run
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar Hyperstream-Leonardo.jar
-ARG ENVIRONMENT="prod"
-ENV ENVIRONMENT=${ENVIRONMENT}
 ENTRYPOINT ["java", "-jar", "Hyperstream-Leonardo.jar"]
 EXPOSE 8881
