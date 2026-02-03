@@ -3,8 +3,7 @@ plugins {
     id("application")
 }
 
-
-///// Application /////
+// Application //
 
 group = "ru.anafro.hyperstream.leonardo"
 version = "1.0-SNAPSHOT"
@@ -22,9 +21,7 @@ java {
     }
 }
 
-
-
-///// Dependencies /////
+// Dependencies //
 
 repositories {
     mavenCentral()
@@ -41,8 +38,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-
-///// Tasks /////
+// Tasks //
 
 tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -57,7 +53,6 @@ tasks.jar {
         }
     )
 }
-
 
 tasks.test {
     useJUnitPlatform()
