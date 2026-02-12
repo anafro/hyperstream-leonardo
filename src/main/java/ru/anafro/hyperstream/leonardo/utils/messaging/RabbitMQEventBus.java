@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
-import java.util.function.Consumer;
 
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -59,6 +59,14 @@ public class RabbitMQEventBus {
 
         rethrowUnchecked(() -> {
             channel.queueBind(queueName, exchangeName, eventName);
+        });
+    }
+
+    public void dispatch(String eventName, RabbitMQEvent event) {
+        final var props = new AMQP.BasicProperties.Builder()
+                .build();
+        rethrowUnchecked(() -> {
+            this.channel.basicPublish(exchangeName, eventName, props, event.serialize());
         });
     }
 

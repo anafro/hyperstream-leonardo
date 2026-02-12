@@ -18,6 +18,8 @@ public abstract class RabbitMQEvent {
 
     public abstract void hydrate();
 
+    public abstract byte[] serialize();
+
     public long deliveryId() {
         return delivery.getEnvelope().getDeliveryTag();
     }

@@ -1,5 +1,7 @@
 package ru.anafro.hyperstream.leonardo.messaging;
 
+import java.nio.charset.StandardCharsets;
+
 import com.rabbitmq.client.Delivery;
 
 import ru.anafro.hyperstream.leonardo.utils.messaging.RabbitMQEvent;
@@ -19,5 +21,10 @@ public class UserCreatedEvent extends RabbitMQEvent {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public byte[] serialize() {
+        return this.string().getBytes(StandardCharsets.UTF_8);
     }
 }
