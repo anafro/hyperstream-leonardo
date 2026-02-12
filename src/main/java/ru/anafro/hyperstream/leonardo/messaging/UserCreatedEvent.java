@@ -4,10 +4,10 @@ import com.rabbitmq.client.Delivery;
 
 import ru.anafro.hyperstream.leonardo.utils.messaging.RabbitMQEvent;
 
-public class CreateUserEvent extends RabbitMQEvent {
+public class UserCreatedEvent extends RabbitMQEvent {
     private String username;
 
-    public CreateUserEvent(Delivery delivery) {
+    public UserCreatedEvent(Delivery delivery) {
         super(delivery);
     }
 

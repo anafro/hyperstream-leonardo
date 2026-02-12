@@ -3,7 +3,8 @@ package ru.anafro.hyperstream.leonardo.utils.sugar;
 import java.util.function.Function;
 
 public final class NullSafe {
-    private NullSafe() { /* util class */ }
+    private NullSafe() {
+        /* util class */ }
 
     public static <T, R> R nullish(T object, Function<T, R> actionIfPresent) {
         if (object == null) {
@@ -11,5 +12,13 @@ public final class NullSafe {
         } else {
             return actionIfPresent.apply(object);
         }
+    }
+
+    public static <T> T require(T object, String message) {
+        if (object == null) {
+            throw new UnsupportedOperationException(message);
+        }
+
+        return object;
     }
 }
