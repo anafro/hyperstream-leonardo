@@ -17,14 +17,15 @@ import static ru.anafro.hyperstream.leonardo.utils.sugar.CheckedExceptions.rethr
 
 public class S3ProfilePictureRepository extends ProfilePictureRepository {
     private final S3Client s3;
-    private static final String BUCKET_NAME = "profile-pictures";
+    private final String bucket;
 
-    public S3ProfilePictureRepository(String host, String accessKey, String secretKey, String region) {
+    public S3ProfilePictureRepository(String host, String accessKey, String secretKey, String region, String bucket) {
         final var awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
         final var awsCredentialsProvider = StaticCredentialsProvider.create(awsCredentials);
         final var awsRegion = Region.of(region);
         final var awsEndpointURI = rethrowUnchecked(() -> new URI("http://%s:4566/".formatted(host)));
 
+        this.bucket = bucket;
         this.s3 = S3Client.builder()
                 .endpointOverride(awsEndpointURI)
                 .region(awsRegion)
@@ -37,7 +38,7 @@ public class S3ProfilePictureRepository extends ProfilePictureRepository {
     public Optional<ProfilePicture> getById(int id) {
         try {
             final var bytes = s3.getObject(request -> request
-                    .bucket(BUCKET_NAME)
+                    .bucket(bucket)
                     .key(String.valueOf(id))).readAllBytes();
             return ImageDecoder.decodePngBytesToImage(bytes).map(image -> new ProfilePicture(id, image));
         } catch (final IOException exception) {
@@ -48,23 +49,23 @@ public class S3ProfilePictureRepository extends ProfilePictureRepository {
     @Override
     public void deleteById(int id) {
         s3.deleteObject(request -> request
-                .bucket(BUCKET_NAME)
+                .bucket(bucket)
                 .key(String.valueOf(id)));
     }
 
     @Override
     public void store(ProfilePicture profilePicture) {
         s3.putObject(request -> request
-                .bucket(BUCKET_NAME)
+                .bucket(bucket)
                 .key(String.valueOf(profilePicture.id())),
                 RequestBody.fromBytes(profilePicture.bytes()));
     }
 
     private void createS3BucketIfAbsent() {
         try {
-            s3.headBucket(request -> request.bucket(BUCKET_NAME));
+            s3.headBucket(request -> request.bucket(bucket));
         } catch (final NoSuchBucketException exception) {
-            s3.createBucket(request -> request.bucket(BUCKET_NAME));
+            s3.createBucket(request -> request.bucket(bucket));
         }
     }
 }

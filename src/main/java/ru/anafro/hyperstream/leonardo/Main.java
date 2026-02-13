@@ -42,7 +42,8 @@ public class Main {
                 final var s3AccessKey = Secrets.get("S3_ACCESS_KEY");
                 final var s3SecretKey = Secrets.get("S3_SECRET_KEY");
                 final var s3Region = Secrets.get("S3_REGION");
-                yield new S3ProfilePictureRepository(s3Hostname, s3AccessKey, s3SecretKey, s3Region);
+                final var s3Bucket = Secrets.get("S3_BUCKET");
+                yield new S3ProfilePictureRepository(s3Hostname, s3AccessKey, s3SecretKey, s3Region, s3Bucket);
             }
             default ->
                 throw new IllegalArgumentException("'{}' storage is unknown.".formatted(storage));
