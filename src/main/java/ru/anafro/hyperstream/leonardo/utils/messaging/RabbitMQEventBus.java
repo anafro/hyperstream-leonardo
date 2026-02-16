@@ -40,7 +40,12 @@ public class RabbitMQEventBus {
             this.exchangeName = exchange;
             this.queueName = queue;
 
-            channel.exchangeDeclare(exchange, BuiltinExchangeType.TOPIC);
+            channel.exchangeDeclare(
+                    exchange,
+                    BuiltinExchangeType.TOPIC,
+                    true,
+                    false,
+                    null);
             channel.queueDeclare(
                     queue,
                     true,
