@@ -33,6 +33,7 @@ dependencies {
     implementation("io.javalin:javalin:6.7.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.0.1")
     implementation("software.amazon.awssdk:s3:2.41.10")
+    implementation("ch.qos.logback:logback-core:1.5.27")
     implementation("ch.qos.logback:logback-classic:1.5.27")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
