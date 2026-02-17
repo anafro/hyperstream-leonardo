@@ -2,6 +2,9 @@ package ru.anafro.hyperstream.leonardo;
 
 import java.nio.file.Path;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.Namespace;
 import ru.anafro.hyperstream.leonardo.generators.ProfilePictureGeneratorFactory;
@@ -17,7 +20,11 @@ import ru.anafro.hyperstream.leonardo.storage.S3ProfilePictureRepository;
 import ru.anafro.hyperstream.leonardo.utils.messaging.RabbitMQEventBus;
 
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
+        logger.info("Starting Leonardo...");
+
         final var namespace = parseArgs(args);
         final var storage = namespace.getString("storage");
         final var generatorName = namespace.getString("generator");
@@ -64,9 +71,11 @@ public class Main {
                     UserCreatedEvent.class,
                     new UserCreatedEventHandler(eventBus, repository, generator, idConverter));
             eventBus.startListening();
+            logger.info("Leonardo is listening for RabbitMQ events...");
         }
 
         final var server = new ProfilePictureServer(idConverter, repository, host, port);
+        logger.info("Leonardo will listen on http://{}:{}...", host, port);
         server.start();
     }
 
